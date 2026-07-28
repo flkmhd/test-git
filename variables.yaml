@@ -3,7 +3,7 @@ solution_name: test azduh
 simulator_repository: tenant-sphinx-26/brewerysamplesolution_simulator
 solution_description: This solution can be used for QA tests or demonstrations with the most of the parameters types available in the solution configuration.
 solution_key: breweryTesting
-simulator_version: 3.0.1
+simulator_version: 3.0.2
 workspace_name: Babylon v5 workspace
 workspace_key: breweryworkspace
 workspace_description: Testing workspace for the brewery web application

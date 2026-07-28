@@ -612,7 +612,7 @@ spec:
     security: {{security}}
     description: {{solution_description}}
     alwaysPull: true
-    sdkVersion: 12.1.0-40397.d25dc70b
+    sdkVersion: null
     url: ''
     tags:
       - brewery
