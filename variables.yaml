@@ -1,5 +1,5 @@
 organization_name: Babylon v5 Organization
-solution_name: test azduh
+solution_name: test github application
 simulator_repository: tenant-sphinx-26/brewerysamplesolution_simulator
 solution_description: This solution can be used for QA tests or demonstrations with the most of the parameters types available in the solution configuration.
 solution_key: breweryTesting

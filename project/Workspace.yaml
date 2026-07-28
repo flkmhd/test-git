@@ -24,6 +24,7 @@ spec:
           runTemplateFilter:
             - full_demo
             - standalone
+            - pizza
         charts:
           workspaceId: 946bacd0-6d94-4dbb-851c-a297ba1a6bfc
           logInWithUserCredentials: false

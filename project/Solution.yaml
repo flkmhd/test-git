@@ -559,17 +559,6 @@ spec:
         computeSize: null
         runSizing: null
         executionTimeout: null
-      - id: hidden test run template
-        parameterGroups: []
-        name: Hidden test run template without parameters
-        labels:
-          fr: Run template masqué sans paramètres
-          en: Hidden test run template without parameters
-        description: Run template without parameters
-        tags: null
-        computeSize: null
-        runSizing: null
-        executionTimeout: null
       - id: etl_zip2db
         parameterGroups:
           - etl_param_group_local_file
