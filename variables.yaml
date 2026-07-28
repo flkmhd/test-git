@@ -22,7 +22,7 @@ security:
     - id: mahdi.falek@cosmotech.com
       role: admin
     - id: adrian.stanciu@cosmotech.com
-      role: admin
+      role: editor
     - id: mohcine.tor@cosmotech.com
       role: admin
     - id: minh.mach@cosmotech.com
