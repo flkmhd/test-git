@@ -1,0 +1,61 @@
+organization_name: Babylon v5 Organization
+solution_name: test azduh
+simulator_repository: tenant-sphinx-26/brewerysamplesolution_simulator
+solution_description: This solution can be used for QA tests or demonstrations with the most of the parameters types available in the solution configuration.
+solution_key: breweryTesting
+simulator_version: 3.0.1
+workspace_name: Babylon v5 workspace
+workspace_key: breweryworkspace
+workspace_description: Testing workspace for the brewery web application
+cloud_provider: azure
+cluster_name: aks-dev-luxor
+domain_zone: azure.platform.cosmotech.com
+tenant: sphinx
+webapp_name: mahdibuisnessapp
+organization_id: o-xxxxxxxxxxx
+azure_subscription_id: a24b131f-bd0b-42e8-872a-bded9b91ab74
+azure_entra_tenant_id: e413b834-8be8-4822-a370-be619545cb49
+powerbi_app_deploy: false
+security:
+  default: none
+  accessControlList:
+    - id: mahdi.falek@cosmotech.com
+      role: admin
+    - id: adrian.stanciu@cosmotech.com
+      role: admin
+    - id: mohcine.tor@cosmotech.com
+      role: admin
+    - id: minh.mach@cosmotech.com
+      role: admin
+    - id: bertrand.moreau@cosmotech.com
+      role: admin
+    - id: etnik.gashi@cosmotech.com
+      role: admin
+    - id: diamantis.sellis@cosmotech.com
+      role: admin
+    - id: fanny.silencieux@cosmotech.com
+      role: admin
+    - id: tristan.huet@cosmotech.com
+      role: admin
+    - id: jeremy.reynard@cosmotech.com
+      role: admin
+    - id: fanny.teppe@cosmotech.com
+      role: admin
+    - id: raphael.durville@cosmotech.com
+      role: admin
+    - id: dev.sample.webapp@example.com
+      role: admin
+    - id: laurent.alepee@cosmotech.com
+      role: admin
+remote: '{{remote}}'
+trieur_dashboard_id: '{{trieur_dashboard_id}}'
+baggage_dashboard_id: '{{baggage_dashboard_id}}'
+scenario_view_dashboard_id: '{{scenario_view_dashboard_id}}'
+scenario_view_filter_id: '{{scenario_view_filter_id}}'
+scenario_view_flights_dashboard_id: '{{scenario_view_flights_dashboard_id}}'
+scenario_view_flight_filter_id: '{{scenario_view_flight_filter_id}}'
+scenario_view_logistic_dashboard_id: '{{scenario_view_logistic_dashboard_id}}'
+scenario_view_logisitic_filter_id: '{{scenario_view_logisitic_filter_id}}'
+overview_comparaison: '{{overview_comparaison}}'
+subfunction_dashboard_id: '{{subfunction_dashboard_id}}'
+expert_dashboard_id: '{{expert_dashboard_id}}'
