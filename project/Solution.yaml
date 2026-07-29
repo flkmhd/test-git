@@ -602,6 +602,6 @@ spec:
     description: {{solution_description}}
     alwaysPull: true
     sdkVersion: null
-    url: https://github.com/flkmhd/Hatta-app
+    url: ''
     tags:
       - brewery
