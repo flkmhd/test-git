@@ -12,596 +12,721 @@ spec:
     repository: {{simulator_repository}}
     version: {{simulator_version}}
     parameters:
-      - id: stock
-        varType: int
-        description: null
-        labels:
-          fr: Stock
-          en: Stock
-        defaultValue: '50'
-        minValue: null
-        maxValue: null
-        additionalData: null
-      - id: restock_qty
-        varType: int
-        description: null
-        labels:
-          fr: Restock
-          en: Restock
-        defaultValue: '25'
-        minValue: null
-        maxValue: null
-        additionalData: null
-      - id: nb_waiters
-        varType: int
-        description: null
-        labels:
-          fr: Serveurs
-          en: Waiters
-        defaultValue: '5'
-        minValue: null
-        maxValue: null
-        additionalData: null
-      - id: etl_param_bar_instance
+      - id: default_model_parameters
         varType: '%DATASET_PART_ID_FILE%'
         description: null
         labels:
-          fr: fichier d'instance
-          en: instance file
+          en: Model parameters
+          fr: Paramètres du modèle
         defaultValue: null
         minValue: null
         maxValue: null
         additionalData:
-          description: Initial stock dataset part
-          defaultFileTypeFilter: .zip
+          description: Model parameters
+          defaultFileTypeFilter: .csv
           shouldRenameFileOnUpload: true
-      - id: bar_name
-        varType: string
-        description: Name of the bar
-        labels:
-          fr: Nom du bar
-          en: Bar name
-        defaultValue: Default Name
-        minValue: null
-        maxValue: null
-        additionalData:
-          minLength: 1
-          maxLength: 100
-      - id: available_waiters
-        varType: number
-        description: Number of available waiters
-        labels:
-          fr: Nombre de serveurs disponibles
-          en: Number of available waiters
-        defaultValue: '10'
-        minValue: '0'
-        maxValue: '15'
-        additionalData:
-          subType: SLIDER
-      - id: min_tip
-        varType: enum
-        description: Minimal tip
-        labels:
-          fr: Pourboire minimal
-          en: Minimal tip
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          subType: RADIO
-          enumValues:
-            - key: '5'
-              value: 5%
-            - key: '10'
-              value: 10%
-            - key: '15'
-              value: 15%
-      - id: licence
-        varType: enum
-        description: Licence  Category
-        labels:
-          fr: Categorie de Licence
-          en: Licence  Category
-        defaultValue: Licence III
-        minValue: null
-        maxValue: null
-        additionalData:
-          enumValues:
-            - key: 'No'
-              value: No licence
-            - key: '1'
-              value: Licence I
-            - key: '3'
-              value: Licence III
-            - key: '4'
-              value: Licence IV
-      - id: age_restriction
-        varType: bool
-        description: Legal age restriction
-        labels:
-          fr: Age légal à 21 ans
-          en: 21 years old legislation
-        defaultValue: 'false'
-        minValue: null
-        maxValue: null
-        additionalData: null
-      - id: restock_date
-        varType: date
-        description: Last restock date
-        labels:
-          fr: Date du dernier réapprovisionnement du bar
-          en: Date of the last bar restock
-        defaultValue: '2025-12-31T00:00:00.000Z'
-        minValue: '2020-01-01T00:00:00.000Z'
-        maxValue: '2030-12-31T00:00:00.000Z'
-        additionalData: {}
-      - id: discount
-        varType: number
-        description: Discount rate
-        labels:
-          fr: Taux de remise
-          en: Discount rate
-        defaultValue: '50'
-        minValue: '0'
-        maxValue: '100'
-        additionalData: {}
-      - id: MoodDay
-        varType: string
-        description: Mood of the day
-        labels:
-          fr: Humeur du jour
-          en: Mood of the day
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          maxLength: 100
-      - id: scenario_bar_compare
-        varType: enum
-        description: Scenario comparison
-        labels:
-          fr: Choisissez scénario
-          en: Select scenario
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          subType: SCENARIOS
-          runTemplateFilter:
-            - full_demo
-          tooltipText:
-            fr: Choisissez le scénario avec lequel les données seront comparées
-            en: Choose the scenario to compare data with
-      - id: restock_values
-        varType: '%DATASET_PART_ID_FILE%'
-        description: Restock values
-        labels:
-          fr: Valeurs de réapprovisionnement
-          en: Restock values
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          defaultFileTypeFilter: .zip,.csv,.json,.xls,.xlsx
-          tooltipText:
-            fr: Importez le fichier contenant les informations de réapprovisionnement
-            en: Import file with restock information
-      - id: customers_dynamic_table
+      - id: Baggage_pivot
         varType: '%DATASET_PART_ID_FILE%'
         description: null
         labels:
-          fr: Clients
-          en: Customers
+          en: Baggage file
+          fr: Liste des bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          description: La liste des bagages
+          defaultFileTypeFilter: .csv
+          shouldRenameFileOnUpload: true
+      - id: Baggage_pivot_editable_table
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Baggage file
+          fr: Liste des bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          subType: TABLE
+          description: La liste des bagages
+          canChangeRowsNumber: true
+          hasHeader: true
+          dateFormat: yyyy-MM-dd HH:mm:ss
+          defaultFileTypeFilter: .csv
+          columns:
+            - field: BagID
+              headerName: Identifiant bagage
+              type:
+                - string
+            - field: Typology
+              headerName: Typologie Apport
+              type:
+                - string
+              acceptsEmptyFields: true
+            - field: SecurityStatus
+              headerName: Statut initial de sécurité
+              type:
+                - enum
+              enumValues:
+                - Pending
+                - Clear
+            - field: InboundFlightID
+              headerName: Clé de vol apport
+              type:
+                - string
+              acceptsEmptyFields: true
+            - field: InboundFlightTime
+              headerName: Heure vol apport
+              type:
+                - date
+              acceptsEmptyFields: true
+            - field: OutboundFlightID
+              headerName: Clé de vol emport
+              type:
+                - string
+            - field: OutboundFlightTime
+              headerName: Heure vol Emport
+              type:
+                - date
+              acceptsEmptyFields: true
+            - field: GalleryEntryTime
+              headerName: Heure entrée en galerie
+              type:
+                - date
+              acceptsEmptyFields: true
+            - field: EntrySubfunction
+              headerName: Sous-fonction dépose
+              type:
+                - string
+            - field: EntryTime
+              headerName: Heure de dépose
+              type:
+                - date
+            - field: DestinationModule
+              headerName: Module de destination
+              type:
+                - string
+            - field: DestinationSubfunction
+              headerName: Sous-fonction de destination
+              type:
+                - string
+            - field: FinalSortingPointOpeningTime
+              headerName: Ouverture PFT
+              type:
+                - date
+            - field: FinalSortingPointLastMinuteTime
+              headerName: Fermeture PFT
+              type:
+                - date
+            - field: FinalSortingPointClosingTime
+              headerName: Fermeture DM
+              type:
+                - date
+      - id: interactiveMap
+        varType: string
+        description: null
+        labels: null
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData: null
+      - id: date
+        varType: date
+        description: null
+        labels:
+          en: Simulation date
+          fr: Date de simulation
+        defaultValue: '2030-01-01T00:00:00.000Z'
+        minValue: null
+        maxValue: null
+        additionalData: null
+      - id: bin_management
+        varType: bool
+        description: null
+        labels:
+          en: Activate empty bin management
+          fr: Activation de la gestion des bacs vides
         defaultValue: 'true'
         minValue: null
         maxValue: null
-        additionalData:
-          subType: TABLE
-          dateFormat: yyyy-MM-dd
-          dynamicValues:
-            datasetPartName: Customer
-          columns:
-            - field: Name
-              headerName: Name
-              type:
-                - string
-                - nonEditable
-            - field: Date of birth
-              headerName: Date of birth
-              type:
-                - date
-              maxValue: '2008-01-01'
-              acceptsEmptyFields: true
-            - field: Age
-              headerName: Age
-              type:
-                - int
-              minValue: 18
-              acceptsEmptyFields: false
-            - field: Preferred drink
-              headerName: Preferred drink
-              type:
-                - enum
-                - nonSortable
-              enumValues:
-                - Beer
-                - Cocktail
-                - Softs
-                - Wine
-                - Champagne
-              acceptsEmptyFields: false
-            - field: Satisfaction
-              headerName: Satisfaction
-              type:
-                - number
-              minValue: 0
-              maxValue: 10
-              acceptsEmptyFields: true
-            - field: Thirsty
-              headerName: Thirsty
-              type:
-                - bool
-                - nonSortable
-              acceptsEmptyFields: false
-            - field: Service Wave
-              headerName: Service Wave
-              type:
-                - enum
-              enumValues:
-                - Happy Hour
-                - Evening
-                - Late Night
-                - Afternoon
-              acceptsEmptyFields: false
-      - id: events_dynamic_table
-        varType: '%DATASET_PART_ID_FILE%'
-        description: null
-        labels:
-          fr: Evènements programmés
-          en: Planned events
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          canChangeRowsNumber: true
-          subType: TABLE
-          dynamicValues:
-            datasetPartName: Events
-          columns:
-            - field: Event Name
-              headerName: Event Name
-              type:
-                - string
-              defaultValue: Event Name
-              acceptsEmptyFields: false
-            - field: Event Type
-              headerName: Event Type
-              type:
-                - enum
-              defaultValue: Christmas
-              enumValues:
-                - After-work
-                - Birthday
-                - Ceremony
-                - Christmas
-                - Halloween
-                - Pool party
-                - Wedding
-              acceptsEmptyFields: false
-            - headerName: Capacity
-              children:
-                - field: Maximum capacity
-                  headerName: Maximum capacity
-                  type:
-                    - int
-                  minValue: 0
-                  maxValue: 500
-                  acceptsEmptyFields: true
-                - field: Current Reservations
-                  headerName: Current Reservations
-                  type:
-                    - int
-                  minValue: 0
-                  maxValue: 500
-                  acceptsEmptyFields: true
-                - field: Notes
-                  headerName: Notes
-                  type:
-                    - string
-                  columnGroupShow: open
-                  acceptsEmptyFields: true
-            - field: Zone
-              headerName: Zone
-              type:
-                - enum
-              defaultValue: Bar
-              enumValues:
-                - Private Room
-                - Terrace
-                - Basement
-                - Bar
-                - Ball Room
-              acceptsEmptyFields: false
-      - id: additional_customers
-        varType: '%DATASET_PART_ID_FILE%'
-        description: null
-        labels:
-          fr: Ajouter des clients
-          en: Add customers
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          canChangeRowsNumber: true
-          subType: TABLE
-          dateFormat: yyyy-MM-dd
-          columns:
-            - field: Name
-              headerName: Name
-              type:
-                - string
-              defaultValue: Customer Name
-              acceptsEmptyFields: false
-            - field: Age
-              headerName: Age
-              type:
-                - int
-                - nonSortable
-              minValue: '18'
-              acceptsEmptyFields: true
-            - field: Preferred drink
-              headerName: Preferred drink
-              type:
-                - enum
-              enumValues:
-                - Beer
-                - Cocktail
-                - Softs
-                - Wine
-                - Champagne
-              defaultValue: Softs
-              acceptsEmptyFields: false
-            - field: Thirsty
-              headerName: Thirsty
-              type:
-                - bool
-                - nonSortable
-              acceptsEmptyFields: false
-      - id: bar_capacity
+        additionalData: null
+      - id: max_primary_control_recirculations
         varType: int
         description: null
         labels:
-          fr: Capacité d'accueil maximale du bar
-          en: Maximum occupancy of the bar
-        defaultValue: '350'
-        minValue: '1'
-        maxValue: '500'
-        additionalData: {}
-      - id: available_event_types
-        varType: list
+          en: Max primary control recirculations
+          fr: Nombre maximum de recirculations au contrôle primaire
+        defaultValue: '10'
+        minValue: '0'
+        maxValue: null
+        additionalData: null
+      - id: minimum_connection_time
+        varType: int
         description: null
         labels:
-          fr: Types d'évènement disponibles
-          en: Event types available
-        defaultValue: '["Afterworks","Christmas","Weddings"]'
+          en: Minimum connection time
+          fr: Temps de correspondance minimum
+        defaultValue: '60'
+        minValue: '0'
+        maxValue: null
+        additionalData: null
+      - id: flights_and_baggage_assignment_dataset
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Flights and baggage assignment dataset
+          fr: Données de vol et d'affectation des bagages
+        defaultValue: null
         minValue: null
         maxValue: null
         additionalData:
-          enumValues:
-            - key: Afterworks
-              value: Afterworks
-            - key: Birthday
-              value: Birthday
-            - key: Ceremonies
-              value: Ceremonies
-            - key: Christmas
-              value: Christmas
-            - key: Halloween
-              value: Halloween
-            - key: Pool parties
-              value: Pool parties
-            - key: Weddings
-              value: Weddings
+          description: Données de vol et d'affectation des bagages
+          defaultFileTypeFilter: .xlsx
+          hidden: false
+      - id: flights_and_baggage_assignment_fixed_data
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Flights and baggage assignment fixed data
+          fr: Données fixes de vol et d'affectation des bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          description: Données fixes de vol et d'affectation des bagages
+          defaultFileTypeFilter: .xlsx
+          shouldRenameFileOnUpload: true
+          hidden: true
+      - id: flights_and_baggage_assignment_output
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Flights and baggage assignment output
+          fr: Résultats de l'affectation des vols et des bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          description: Résultats de l'affectation des vols et des bagages
+          defaultFileTypeFilter: .xlsx
+          shouldRenameFileOnUpload: true
+      - id: etl_input_json_file
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Input JSON file
+          fr: Fichier JSON d'entrée
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          description: Fichier JSON d'entrée représentant la carte interactive
+          defaultFileTypeFilter: .json
+          shouldRenameFileOnUpload: true
+          hidden: true
+      - id: baggage_logistics_and_generation_dataset
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Baggage logistics and generation dataset
+          fr: Données de logistique et génération des bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          description: Données de logistique et génération des bagages
+          defaultFileTypeFilter: .xlsx
+          hidden: false
+      - id: Flight_info
+        varType: '%DATASET_PART_ID_FILE%'
+        description: Information on inbound and outbound flights
+        labels:
+          en: Flight info
+          fr: Info vols
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          shouldRenameFileOnUpload: false
+          tooltipText: Upload the Flight info sheet with information on all inbound and outbound flights
+      - id: Baggage_path_AF
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Baggage path overview
+          fr: Chemin des bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          shouldRenameFileOnUpload: false
+      - id: ScenarioName
+        varType: string
+        description: Hidden parameter to force webapp refresh
+        labels:
+          en: ScenarioName
+          fr: ScenarioName
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          hidden: true
+      - id: Flight_program
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Flight programme
+          fr: Programme de vols
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          defaultFileTypeFilter: .xlsx,.csv,.xlsx,.xls
+          shouldRenameFileOnUpload: false
+      - id: Baggage_flux_parameters
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Baggage flux parameters
+          fr: Paramétrage des flux de bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          defaultFileTypeFilter: .xlsx
+          shouldRenameFileOnUpload: false
+      - id: generation_simulation_output
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels: {}
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          shouldRenameFileOnUpload: false
+      - id: Pre_sorting
+        varType: '%DATASET_PART_ID_FILE%'
+        description: Fichier pré-tri dans le format AF. Un seul onglet visible qui commence avec APPORT, un seul visible qui commence avec EMPORT, et tous les onglets des plages doivent commencer par P et avoir des chiffres ensuite (rien d'autre)
+        labels:
+          en: Pre-sorting file
+          fr: Fichier pré-tri (AF)
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          defaultFileTypeFilter: .xlsx
+          shouldRenameFileOnUpload: false
+      - id: baggages3_1_upload
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Upload
+          fr: Chargements
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          description: Charger le fichier de bagages au format version 3.1
+          defaultFileTypeFilter: .csv,.xlsx
+          shouldRenameFileOnUpload: true
+      - id: baggages4_1_download
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Download
+          fr: Téléchargement
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          description: Télécharger le fichier de bagages converti au format version 4.1
+          defaultFileTypeFilter: .csv
+          shouldRenameFileOnUpload: true
+      - id: remove_capacity_limit
+        varType: bool
+        description: null
+        labels:
+          en: Ignore transport and subfunction capacities
+          fr: Ignorer les capacités de transport et de sous-fonction
+        defaultValue: 'false'
+        minValue: null
+        maxValue: null
+        additionalData:
           tooltipText:
-            fr: Choisissez toutes les catégories d'énènement proposés par le bar
-            en: Select all event types offered by the bar
-      - id: event_manager_dynamic_list
-        varType: list
-        description: null
+            en: Useful when there are blocked bags, only to be used for debugging purposes.
+            fr: Utile lorsqu'il y a des bagages bloqués, à utiliser uniquement à des fins de débogage.
+      - id: Logistics_parameters
+        varType: '%DATASET_PART_ID_FILE%'
+        description: |-
+          Onglets requis:
+          - DistributionTypologies
+          - TempsMoyenAvionGalerie
+          - TempsMaxAttenteDepose
+          - ManutentionDepose
+          - FenetreEnregistrement
         labels:
-          fr: Sélectionnez le(s) responsable(s) pour l'évènement
-          en: Select the event manager(s)
+          en: Logistics parameters
+          fr: Paramètres logistiques
         defaultValue: null
         minValue: null
         maxValue: null
         additionalData:
-          dynamicEnumValues:
-            type: dbDatasetPart
-            datasetPartName: Customer
-            resultKey: Name
-            options:
-              selects: Name
-      - id: etl_param_list_dynamic_customers
-        varType: list
-        description: null
-        labels:
-          fr: Sélectionnez le(s) clients à conserver
-          en: Select the customer(s) to keep
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          dynamicEnumValues:
-            type: dbDatasetPart
-            datasetPartName: Customer
-            resultKey: Name
-            options:
-              selects: Name
-      - id: etl_param_enum_dynamic_drink
-        varType: enum
-        description: null
-        labels:
-          fr: Sélectionnez le type de boisson
-          en: Select drink type
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          dynamicEnumValues:
-            type: dbDatasetPart
-            datasetPartName: Customer
-            resultKey: Preferred drink
-            options:
-              selects: Preferred drink*
+          defaultFileTypeFilter: .xlsx,.xls
+          shouldRenameFileOnUpload: false
     parameterGroups:
-      - id: simulation_parameters
+      - id: etl_input_json_file
         parameters:
-          - stock
-          - restock_qty
-          - nb_waiters
+          - etl_input_json_file
         description: null
         labels:
+          en: Input JSON file
+          fr: Fichier JSON d'entrée
+        additionalData: null
+      - id: default_model_parameters
+        parameters:
+          - default_model_parameters
+          - ScenarioName
+        description: null
+        labels:
+          en: Model parameters
+          fr: Paramètres du modèle
+        additionalData:
+          hidden: true
+      - id: baggage_file
+        parameters:
+          - Baggage_pivot_editable_table
+        description: null
+        labels:
+          en: Baggage file
+          fr: Fichier de bagages
+        additionalData: null
+      - id: interactiveMap
+        parameters:
+          - interactiveMap
+        description: null
+        labels:
+          en: Interactive map
+          fr: Carte interactive
+        additionalData: null
+      - id: common_parameters
+        parameters:
+          - date
+          - bin_management
+          - remove_capacity_limit
+          - max_primary_control_recirculations
+        description: null
+        labels:
+          en: Simulation parameters
           fr: Paramètres de simulation
-          en: Simulation Parameters
         additionalData: null
-      - id: etl_param_group_local_file
+      - id: baggage_basic
         parameters:
-          - etl_param_bar_instance
+          - Baggage_pivot
         description: null
         labels:
-          fr: local_file
-          en: local_file
+          en: Baggage
+          fr: Bagages
         additionalData: null
-      - id: bar_complete
+      - id: baggage_detailed
         parameters:
-          - bar_name
-          - available_waiters
-          - min_tip
-          - licence
-          - age_restriction
-          - restock_date
-          - restock_values
-          - discount
-          - MoodDay
-          - scenario_bar_compare
+          - Baggage_pivot_editable_table
         description: null
         labels:
-          fr: Bar
-          en: Bar
+          en: Baggage
+          fr: Bagages
         additionalData: null
-      - id: customers_complete
+      - id: flights_and_baggage_assignment_parameters
         parameters:
-          - customers_dynamic_table
-          - bar_capacity
-          - additional_customers
+          - date
+          - minimum_connection_time
         description: null
         labels:
-          fr: Clients
-          en: Customers
+          en: Parameters
+          fr: Paramètres
         additionalData: null
-      - id: events_complete
+      - id: flights_and_baggage_assignment_dataset
         parameters:
-          - events_dynamic_table
-          - available_event_types
-          - event_manager_dynamic_list
+          - flights_and_baggage_assignment_dataset
         description: null
         labels:
-          fr: Evènements
-          en: Events
+          en: Input data
+          fr: Données d'entrée
         additionalData: null
-      - id: etl_param_group_all_fields
+      - id: flights_and_baggage_assignment_fixed_data
         parameters:
-          - etl_param_string_barName
-          - etl_param_enum_barCapacity
-          - etl_param_list_eventTypes
+          - flights_and_baggage_assignment_fixed_data
         description: null
         labels:
-          fr: local_file
-          en: local_file
-        additionalData: null
-      - id: etl_param_group_dynamic_subdatasets
+          en: Fixed data
+          fr: Données fixes
+        additionalData:
+          hidden: true
+      - id: flights_and_baggage_assignment_output
         parameters:
-          - etl_param_list_dynamic_customers
-          - etl_param_enum_dynamic_drink
-        description: The non dynamic fields are tested in the dataset creation ETL, here it's only the dynamic fields.
+          - flights_and_baggage_assignment_output
+        description: null
         labels:
-          fr: local_file
-          en: local_file
+          en: Results
+          fr: Résultats
+        additionalData: null
+      - id: hidden_data_for_baggage_logistics
+        parameters:
+          - flights_and_baggage_assignment_dataset
+          - flights_and_baggage_assignment_fixed_data
+          - flights_and_baggage_assignment_output
+          - default_model_parameters
+          - date
+        description: null
+        labels:
+          en: Inherited and fixed data for logistics
+          fr: Données héritées et fixes pour la logistique
+        additionalData:
+          hidden: true
+      - id: baggage_logistics_and_generation_dataset
+        parameters:
+          - baggage_logistics_and_generation_dataset
+        description: null
+        labels:
+          en: Logistics data
+          fr: Données de logistique
+        additionalData: null
+      - id: baggage_logistics_and_generation_output
+        parameters:
+          - Baggage_pivot
+        description: null
+        labels:
+          en: Logistics output
+          fr: Résultats Schéma Logistique
+        additionalData: null
+      - id: hidden_interactiveMap
+        parameters:
+          - interactiveMap
+        description: null
+        labels:
+          en: Interactive map
+          fr: Carte interactive
+        additionalData:
+          hidden: true
+      - id: hidden_date
+        parameters:
+          - date
+        description: null
+        labels:
+          en: Simulation date
+          fr: Date de simulation
+        additionalData:
+          hidden: true
+      - id: bagages-vols
+        parameters:
+          - Baggage_pivot
+          - Flight_info
+        description: null
+        labels:
+          en: Baggage and flights
+          fr: Bagages et vols
+        additionalData: null
+      - id: simulation_af_output
+        parameters:
+          - Baggage_path_AF
+        description: null
+        labels:
+          en: Results
+          fr: Résultats
+        additionalData: null
+      - id: hidden_baggage_editable_table
+        parameters:
+          - Baggage_pivot_editable_table
+        description: null
+        labels: null
+        additionalData:
+          hidden: true
+      - id: gene_simu_inputs
+        parameters:
+          - Flight_program
+          - Baggage_flux_parameters
+          - minimum_connection_time
+          - Pre_sorting
+          - Logistics_parameters
+        description: null
+        labels:
+          en: Inputs
+          fr: Entrées
+        additionalData: null
+      - id: gene_simu_outputs
+        parameters:
+          - generation_simulation_output
+        description: null
+        labels:
+          en: Result
+          fr: Résultat
+        additionalData: null
+      - id: baggages3_1_upload
+        parameters:
+          - baggages3_1_upload
+        description: null
+        labels:
+          en: Baggage v3.1
+          fr: Bagages v3.1
+        additionalData: null
+      - id: baggages4_1_download
+        parameters:
+          - baggages4_1_download
+        description: null
+        labels:
+          en: Baggage v4.1
+          fr: Bagages v4.1
         additionalData: null
     runTemplates:
-      - id: full_demo
+      - id: basic_simulation
         parameterGroups:
-          - bar_complete
-          - customers_complete
-          - events_complete
-          - simulation_parameters
-        name: Complete Brewery
-        labels:
-          fr: Brewery - Tous les paramètres
-          en: Brewery - All parameters
-        description: This template contains all the parameters type for QA tests or for demonstrations
-        tags:
-          - QA
-          - Demonstration
+          - default_model_parameters
+          - common_parameters
+          - baggage_basic
+          - interactiveMap
+        name: Simulation simple
+        labels: null
+        description: null
+        tags: null
+        computeSize: basic
+        runSizing:
+          requests:
+            cpu: '1'
+            memory: 4Gi
+          limits:
+            cpu: '1'
+            memory: 4Gi
+        executionTimeout: null
+      - id: detailed_simulation
+        parameterGroups:
+          - default_model_parameters
+          - common_parameters
+          - baggage_detailed
+          - interactiveMap
+        name: Simulation détaillée
+        labels: null
+        description: null
+        tags: null
+        computeSize: basic
+        runSizing:
+          requests:
+            cpu: '1'
+            memory: 4Gi
+          limits:
+            cpu: '1'
+            memory: 4Gi
+        executionTimeout: null
+      - id: simulation_af
+        parameterGroups:
+          - common_parameters
+          - bagages-vols
+          - default_model_parameters
+          - interactiveMap
+          - simulation_af_output
+        name: Simulation AF
+        labels: null
+        description: Simulation Air France
+        tags: []
         computeSize: null
         runSizing: null
         executionTimeout: null
-      - id: standalone
-        parameterGroups: []
-        name: Run template without parameters
-        labels:
-          fr: Run template sans paramètres
-          en: Run template without parameters
-        description: Run template without parameters or outputs
-        tags:
-          - standalone
-          - No param
-        computeSize: null
-        runSizing: null
-        executionTimeout: null
-      - id: etl_zip2db
+      - id: flights_and_baggage_assignment
         parameterGroups:
-          - etl_param_group_local_file
-        name: etl_zip2db
+          - flights_and_baggage_assignment_parameters
+          - flights_and_baggage_assignment_dataset
+          - flights_and_baggage_assignment_fixed_data
+          - flights_and_baggage_assignment_output
+          - hidden_interactiveMap
+        name: Génération des vols et affectation des bagages
+        labels: null
+        description: null
+        tags: null
+        computeSize: basic
+        runSizing:
+          requests:
+            cpu: '1'
+            memory: 4Gi
+          limits:
+            cpu: '1'
+            memory: 4Gi
+        executionTimeout: null
+      - id: upload_dataset
+        parameterGroups:
+          - etl_input_json_file
+        name: Chargement de jeu de données
         labels:
-          fr: ETL - Générateur de dataset type DB
-          en: ETL - DB parts generator
-        description: This ETL split any .zip file in DB part, one for each .csv file provided in the .zip
+          en: JSON dataset upload
+          fr: Chargement de jeu de données JSON
+        description: null
         tags:
+          - ETL
           - datasource
+          - interactive map
+        computeSize: basic
+        runSizing:
+          requests:
+            cpu: '1'
+            memory: 4Gi
+          limits:
+            cpu: '1'
+            memory: 4Gi
+        executionTimeout: null
+      - id: baggage_logistics_and_generation
+        parameterGroups:
+          - hidden_data_for_baggage_logistics
+          - baggage_logistics_and_generation_dataset
+          - baggage_logistics_and_generation_output
+          - interactiveMap
+          - hidden_baggage_editable_table
+        name: Logistique et génération de tables de baggages
+        labels: null
+        description: null
+        tags: null
+        computeSize: basic
+        runSizing:
+          requests:
+            cpu: '1'
+            memory: 4Gi
+          limits:
+            cpu: '1'
+            memory: 4Gi
+        executionTimeout: null
+      - id: generation_simulation
+        parameterGroups:
+          - gene_simu_inputs
+          - gene_simu_outputs
+        name: Génération des flux, typologies, affectation des déposes
+        labels: null
+        description: Étapes 1-4 de la chaîne génération + simulation
+        tags: []
         computeSize: null
         runSizing: null
         executionTimeout: null
-      - id: etl_allfields
+      - id: upgrade_baggage_file
         parameterGroups:
-          - etl_param_group_all_fields
-        name: ELT - All fields
+          - baggages3_1_upload
+          - baggages4_1_download
+        name: Mise à jour du fichier bagages
         labels:
-          fr: ETL - Tous types de champs
-          en: ETL - All fields
-        description: This ETL is only used to test all the field types in the dataset creation wizard
+          en: Upgrade baggage file
+          fr: Mise à jour du fichier bagages
+        description: Conversion du fichier bagages de la version 3.1 vers la version 4.1
         tags:
-          - datasource
-        computeSize: null
-        runSizing: null
-        executionTimeout: null
-      - id: etl_sub_dataset_dynamic_fields
-        parameterGroups:
-          - etl_param_group_dynamic_subdatasets
-        name: ETL - Subdatasets dynamic filters
-        labels:
-          fr: ETL - Subdatasets avec filtres dynamiques
-          en: ETL - Subdatasets dynamic filters
-        description: The non dynamic fields are tested in the dataset creation ETL, here it's only the dynamic fields.
-        tags:
-          - subdatasource
-        computeSize: null
-        runSizing: null
+          - baggage
+          - conversion
+        computeSize: basic
+        runSizing:
+          requests:
+            cpu: '1'
+            memory: 4Gi
+          limits:
+            cpu: '1'
+            memory: 4Gi
         executionTimeout: null
     security: {{security}}
     description: {{solution_description}}
     alwaysPull: true
-    sdkVersion: null
+    sdkVersion: 12.1.0-40397.d25dc70b
     url: ''
     tags:
-      - brewery
+      - tri bagages
