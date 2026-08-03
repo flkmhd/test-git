@@ -53,8 +53,6 @@ security:
       role: editor
     - id: mathilde.emery-roch@cosmotech.com
       role: editor
-
-
 powerbi:
   workspace_id: dc591e05-09eb-409a-9ead-ae8da74c86f9
   scenario_view:
@@ -69,4 +67,3 @@ powerbi:
     sous_fonctions: 2271530b-4880-413b-993e-235ca417f8b1
     expert: f935d561-aa9f-4d93-9807-3307d7221a8b
     overview_comparison: ea37fb8f-5e85-4ef4-b847-81bbabd2f7ee
-
