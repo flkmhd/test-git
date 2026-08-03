@@ -4,11 +4,11 @@ namespace:
 spec:
   sidecars:
     postgres:
-        schema:
-          create: {{run_postgres_job}}
-          jobs:
-            - name: k8s_job.yaml
-              path: postgres/jobs
+      schema:
+        create: {{run_postgres_job}}
+        jobs:
+          - name: k8s_job.yaml
+            path: postgres/jobs
     dashboards:
       provider: superset
       create: false
@@ -30,22 +30,16 @@ spec:
         - name: dashboard_export_20260617T154329
           path: dashboards/dashboard_export_20260617T154329.zip
   payload:
-    key: "{{workspace_key}}"
-    name: "{{workspace_name}}"
-    description: "{{workspace_description}}"
+    key: {{workspace_key}}
+    name: {{workspace_name}}
     solution:
-      solutionId: "{{services['api.solution_id']}}"
-
-
-
+      solutionId: {{services['api.solution_id']}}
+    security: {{security}}
+    description: {{workspace_description}}
+    version: null
     tags:
       - workspace
       - babylon
-    datasetCopy: false
-    useDedicatedEventHubNamespace: true
-    sendScenarioMetadataToEventHub: true
-    sendInputToDataWarehouse: true
-    sendScenarioRunToEventHub: true
     additionalData:
       webapp:
         disableOutOfSyncWarningBanner: true
@@ -53,7 +47,7 @@ spec:
           runTemplateFilter: null
           defaultRunTemplateDataset: null
         charts:
-          workspaceId: "{{powerbi['workspace_id']}}"
+          workspaceId: {{powerbi['workspace_id']}}
           logInWithUserCredentials: false
           scenarioViewIframeDisplayRatio: 3.142857145
           dashboardsViewIframeDisplayRatio: 1.610062893
@@ -63,7 +57,7 @@ spec:
                 - column: last_csm_run_id
                   table: GetScenarios
                   values: visibleScenariosLastRunIds
-              reportId: "{{powerbi['dashboard_view']['bagages']}}"
+              reportId: {{powerbi['dashboard_view']['bagages']}}
               settings:
                 navContentPaneEnabled: false
                 panes:
@@ -77,7 +71,7 @@ spec:
                 - column: last_csm_run_id
                   table: GetScenarios
                   values: visibleScenariosLastRunIds
-              reportId: "{{powerbi['dashboard_view']['sous_fonctions']}}"
+              reportId: {{powerbi['dashboard_view']['sous_fonctions']}}
               settings:
                 navContentPaneEnabled: false
                 panes:
@@ -91,7 +85,7 @@ spec:
                 - column: last_csm_run_id
                   table: GetScenarios
                   values: visibleScenariosLastRunIds
-              reportId: "{{powerbi['dashboard_view']['expert']}}"
+              reportId: {{powerbi['dashboard_view']['expert']}}
               settings:
                 navContentPaneEnabled: false
                 panes:
@@ -105,7 +99,7 @@ spec:
                 - column: last_csm_run_id
                   table: GetScenarios
                   values: visibleScenariosLastRunIds
-              reportId: "{{powerbi['dashboard_view']['overview_comparison']}}"
+              reportId: {{powerbi['dashboard_view']['overview_comparison']}}
               settings:
                 navContentPaneEnabled: false
                 panes:
@@ -123,7 +117,7 @@ spec:
                   filters:
                     expanded: false
                     visible: true
-              reportId: "{{powerbi['scenario_view']['basic_simulation']}}"
+              reportId: {{powerbi['scenario_view']['basic_simulation']}}
               title:
                 en: Scenario view
                 fr: Vue scenario
@@ -138,7 +132,7 @@ spec:
                   filters:
                     expanded: false
                     visible: true
-              reportId: "{{powerbi['scenario_view']['baggage_logistics_and_generation']}}"
+              reportId: {{powerbi['scenario_view']['baggage_logistics_and_generation']}}
               title:
                 en: Scenario view
                 fr: Vue scenario
@@ -153,7 +147,7 @@ spec:
                   filters:
                     expanded: false
                     visible: true
-              reportId: "{{powerbi['scenario_view']['flights_and_baggage_assignment']}}"
+              reportId: {{powerbi['scenario_view']['flights_and_baggage_assignment']}}
               title:
                 en: Scenario view
                 fr: Vue scenario
@@ -168,7 +162,7 @@ spec:
                   filters:
                     expanded: false
                     visible: true
-              reportId: "{{powerbi['scenario_view']['detailed_simulation']}}"
+              reportId: {{powerbi['scenario_view']['detailed_simulation']}}
               title:
                 en: Scenario view
                 fr: Vue scenario
@@ -183,7 +177,7 @@ spec:
                   filters:
                     expanded: false
                     visible: true
-              reportId: "{{powerbi['scenario_view']['simulation_af']}}"
+              reportId: {{powerbi['scenario_view']['simulation_af']}}
               title:
                 en: Scenario view
                 fr: Vue scenario
@@ -198,7 +192,7 @@ spec:
                   filters:
                     expanded: false
                     visible: true
-              reportId: "{{powerbi['scenario_view']['generation_simulation']}}"
+              reportId: {{powerbi['scenario_view']['generation_simulation']}}
               title:
                 en: Scenario view
                 fr: Vue scenario
@@ -213,7 +207,7 @@ spec:
                   filters:
                     expanded: false
                     visible: true
-              reportId: "{{powerbi['dashboard_view']['sous_fonctions']}}"
+              reportId: {{powerbi['dashboard_view']['sous_fonctions']}}
               title:
                 en: Scenario view
                 fr: Vue scenario
@@ -222,10 +216,14 @@ spec:
                   column: last_csm_run_id
                   table: GetScenarios
         menu:
-          documentationUrl: 'https://portal.cosmotech.com/resources/custom-solutions/cosmo-tech-adp/cosmo-tech-adp-tri-bagages-phase-2'
-          organizationUrl: 'https://cosmotech.com'
-          supportUrl: 'https://support.cosmotech.com'
+          documentationUrl: https://portal.cosmotech.com/resources/custom-solutions/cosmo-tech-adp/cosmo-tech-adp-tri-bagages-phase-2
+          organizationUrl: https://cosmotech.com
+          supportUrl: https://support.cosmotech.com
         datasetManager:
           datasourceFilter:
             - upload_dataset
-    security: {{security}}
+    datasetCopy: false
+    useDedicatedEventHubNamespace: true
+    sendScenarioMetadataToEventHub: true
+    sendInputToDataWarehouse: true
+    sendScenarioRunToEventHub: true

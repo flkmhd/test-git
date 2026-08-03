@@ -296,15 +296,6 @@ spec:
         additionalData:
           defaultFileTypeFilter: .xlsx
           shouldRenameFileOnUpload: false
-      - id: generation_simulation_output
-        varType: '%DATASET_PART_ID_FILE%'
-        description: null
-        labels: {}
-        defaultValue: null
-        minValue: null
-        maxValue: null
-        additionalData:
-          shouldRenameFileOnUpload: false
       - id: Pre_sorting
         varType: '%DATASET_PART_ID_FILE%'
         description: Fichier pré-tri dans le format AF. Un seul onglet visible qui commence avec APPORT, un seul visible qui commence avec EMPORT, et tous les onglets des plages doivent commencer par P et avoir des chiffres ensuite (rien d'autre)
@@ -356,6 +347,9 @@ spec:
           tooltipText:
             en: Useful when there are blocked bags, only to be used for debugging purposes.
             fr: Utile lorsqu'il y a des bagages bloqués, à utiliser uniquement à des fins de débogage.
+          description: Télécharger le fichier de bagages converti au format version 4.1
+          defaultFileTypeFilter: .csv
+          shouldRenameFileOnUpload: true
       - id: Logistics_parameters
         varType: '%DATASET_PART_ID_FILE%'
         description: |-
@@ -374,6 +368,21 @@ spec:
         additionalData:
           defaultFileTypeFilter: .xlsx,.xls
           shouldRenameFileOnUpload: false
+          tooltipText:
+            en: Useful when there are blocked bags, only to be used for debugging purposes.
+            fr: Utile lorsqu'il y a des bagages bloqués, à utiliser uniquement à des fins de débogage.
+      - id: resultats_flux_bagages
+        varType: '%DATASET_PART_ID_FILE%'
+        description: null
+        labels:
+          en: Baggage flux results
+          fr: Résultats flux bagages
+        defaultValue: null
+        minValue: null
+        maxValue: null
+        additionalData:
+          shouldRenameFileOnUpload: false
+          defaultFileTypeFilter: .xlsx,.xls
     parameterGroups:
       - id: etl_input_json_file
         parameters:
@@ -553,14 +562,6 @@ spec:
           en: Inputs
           fr: Entrées
         additionalData: null
-      - id: gene_simu_outputs
-        parameters:
-          - generation_simulation_output
-        description: null
-        labels:
-          en: Result
-          fr: Résultat
-        additionalData: null
       - id: baggages3_1_upload
         parameters:
           - baggages3_1_upload
@@ -576,6 +577,16 @@ spec:
         labels:
           en: Baggage v4.1
           fr: Bagages v4.1
+        additionalData: null
+      - id: af_generation_outputs
+        parameters:
+          - resultats_flux_bagages
+          - Baggage_pivot
+          - Flight_info
+        description: null
+        labels:
+          en: Generation result
+          fr: Résultat génération
         additionalData: null
     runTemplates:
       - id: basic_simulation
@@ -694,10 +705,11 @@ spec:
       - id: generation_simulation
         parameterGroups:
           - gene_simu_inputs
-          - gene_simu_outputs
-        name: Génération des flux, typologies, affectation des déposes
+          - af_generation_outputs
+          - hidden_baggage_editable_table
+        name: Génération des bagages et simulation
         labels: null
-        description: Étapes 1-4 de la chaîne génération + simulation
+        description: Étapes 1-8 de la chaîne génération + simulation
         tags: []
         computeSize: null
         runSizing: null

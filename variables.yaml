@@ -1,22 +1,14 @@
-# =========================================================
-# IMPORTANT: You can add variables here as needed!
-# Make sure they are used in the manifest YAML.
-# =========================================================
-# Organization
-remote: true
+remote: '{{remote}}'
 organization_name: AirFrance TriBagages
-# Solution
 solution_name: AirFrance TriBagages
 simulator_repository: tenant-tribagage-pbi/air_france_tri_bagages_simulator
 solution_description: AirFrance TriBagages application
 solution_key: air-france-tri-bagages
-simulator_version: 5.0.0-rc1
-# Workspace
+simulator_version: 5.0.0-af-gs-step8
 workspace_name: AirFrance TriBagages
 workspace_key: air-france-tri-bagages
 workspace_description: Workspace for the AirFrance TriBagages solution
-run_postgres_job: false
-# Webapp
+run_postgres_job: true
 cloud_provider: azure
 cluster_name: aks-dev-delivery
 domain_zone: azure.platform.cosmotech.com
@@ -26,39 +18,41 @@ tf_webapp_version: 1.0.3
 azure_subscription_id: a24b131f-bd0b-42e8-872a-bded9b91ab74
 azure_entra_tenant_id: e413b834-8be8-4822-a370-be619545cb49
 powerbi_app_deploy: true
-# ACL
 security:
   default: none
   accessControlList:
-  - id: edon.tafili.ext@cosmotech.com
-    role: admin
-  - id: mohcine.tor@cosmotech.com
-    role: admin
-  - id: geoffrey.gontard@cosmotech.com
-    role: admin
-  - id: john.folly@cosmotech.com
-    role: admin
-  - id: endrit.ahmeti.ext@cosmotech.com
-    role: admin
-  - id: selmin.lekovic.ext@cosmotech.com
-    role: admin
-  - id: tristan.huet@cosmotech.com
-    role: admin
-  - id: ousmane.diop@cosmotech.com
-    role: admin
-  - id: ivan.glasser@cosmotech.com
-    role: admin
-  - id: amelie.veron@cosmotech.com
-    role: admin
-  - id: migration-team
-    role: admin
-  - id: fanny.teppe@cosmotech.com
-    role: admin
-  - id: etnik.gashi.ext@cosmotech.com
-    role: admin
-  - id: nienke.blom@cosmotech.com
-    role: admin
-# Power bi
+    - id: edon.tafili.ext@cosmotech.com
+      role: admin
+    - id: mohcine.tor@cosmotech.com
+      role: admin
+    - id: geoffrey.gontard@cosmotech.com
+      role: admin
+    - id: john.folly@cosmotech.com
+      role: admin
+    - id: endrit.ahmeti.ext@cosmotech.com
+      role: admin
+    - id: selmin.lekovic.ext@cosmotech.com
+      role: admin
+    - id: tristan.huet@cosmotech.com
+      role: admin
+    - id: ousmane.diop@cosmotech.com
+      role: admin
+    - id: ivan.glasser@cosmotech.com
+      role: admin
+    - id: amelie.veron@cosmotech.com
+      role: admin
+    - id: migration-team
+      role: admin
+    - id: fanny.teppe@cosmotech.com
+      role: admin
+    - id: etnik.gashi.ext@cosmotech.com
+      role: admin
+    - id: nienke.blom@cosmotech.com
+      role: admin
+    - id: justine.bailly-bechet@cosmotech.com
+      role: editor
+    - id: mathilde.emery-roch@cosmotech.com
+      role: editor
 powerbi:
   workspace_id: dc591e05-09eb-409a-9ead-ae8da74c86f9
   scenario_view:
@@ -73,3 +67,14 @@ powerbi:
     sous_fonctions: 2271530b-4880-413b-993e-235ca417f8b1
     expert: f935d561-aa9f-4d93-9807-3307d7221a8b
     overview_comparison: ea37fb8f-5e85-4ef4-b847-81bbabd2f7ee
+powerbi['workspace_id']: dc591e05-09eb-409a-9ead-ae8da74c86f9
+powerbi['dashboard_view']['bagages']: d53f0770-f686-46d6-86a0-f614981fc41d
+powerbi['dashboard_view']['sous_fonctions']: 2271530b-4880-413b-993e-235ca417f8b1
+powerbi['dashboard_view']['expert']: f935d561-aa9f-4d93-9807-3307d7221a8b
+powerbi['dashboard_view']['overview_comparison']: ea37fb8f-5e85-4ef4-b847-81bbabd2f7ee
+powerbi['scenario_view']['basic_simulation']: fa34ecda-cac6-4ac9-b048-4056521e36e0
+powerbi['scenario_view']['baggage_logistics_and_generation']: dd9ce760-b7ba-427d-a9ae-c6739b6f7e6a
+powerbi['scenario_view']['flights_and_baggage_assignment']: b6c40280-4c04-4639-87f1-cbefd27a6d3f
+powerbi['scenario_view']['detailed_simulation']: fa34ecda-cac6-4ac9-b048-4056521e36e0
+powerbi['scenario_view']['simulation_af']: fa34ecda-cac6-4ac9-b048-4056521e36e0
+powerbi['scenario_view']['generation_simulation']: fa34ecda-cac6-4ac9-b048-4056521e36e0
