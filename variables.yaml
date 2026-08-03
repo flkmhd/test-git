@@ -1,61 +1,75 @@
-organization_name: Babylon v5 Organization
-solution_name: test github application 2
-simulator_repository: tenant-sphinx-26/brewerysamplesolution_simulator
-solution_description: This solution can be used for QA tests or demonstrations with the most of the parameters types available in the solution configuration.
-solution_key: breweryTesting
-simulator_version: 3.0.2
-workspace_name: Babylon v5 workspace
-workspace_key: breweryworkspace
-workspace_description: Testing workspace for the brewery web application
+# =========================================================
+# IMPORTANT: You can add variables here as needed!
+# Make sure they are used in the manifest YAML.
+# =========================================================
+# Organization
+remote: true
+organization_name: AirFrance TriBagages
+# Solution
+solution_name: AirFrance TriBagages
+simulator_repository: tenant-tribagage-pbi/air_france_tri_bagages_simulator
+solution_description: AirFrance TriBagages application
+solution_key: air-france-tri-bagages
+simulator_version: 5.0.0-rc1
+# Workspace
+workspace_name: AirFrance TriBagages
+workspace_key: air-france-tri-bagages
+workspace_description: Workspace for the AirFrance TriBagages solution
+run_postgres_job: false
+# Webapp
 cloud_provider: azure
-cluster_name: aks-dev-luxor
+cluster_name: aks-dev-delivery
 domain_zone: azure.platform.cosmotech.com
-tenant: sphinx
-webapp_name: mahdibuisnessapp
-organization_id: o-xxxxxxxxxxx
+tenant: tribagage-pbi
+webapp_name: af-tribagages
+tf_webapp_version: 1.0.3
 azure_subscription_id: a24b131f-bd0b-42e8-872a-bded9b91ab74
 azure_entra_tenant_id: e413b834-8be8-4822-a370-be619545cb49
-powerbi_app_deploy: false
+powerbi_app_deploy: true
+# ACL
 security:
   default: none
   accessControlList:
-    - id: mahdi.falek@cosmotech.com
-      role: admin
-    - id: adrian.stanciu@cosmotech.com
-      role: editor
-    - id: mohcine.tor@cosmotech.com
-      role: admin
-    - id: minh.mach@cosmotech.com
-      role: admin
-    - id: bertrand.moreau@cosmotech.com
-      role: admin
-    - id: etnik.gashi@cosmotech.com
-      role: admin
-    - id: diamantis.sellis@cosmotech.com
-      role: admin
-    - id: fanny.silencieux@cosmotech.com
-      role: admin
-    - id: tristan.huet@cosmotech.com
-      role: admin
-    - id: jeremy.reynard@cosmotech.com
-      role: admin
-    - id: fanny.teppe@cosmotech.com
-      role: admin
-    - id: raphael.durville@cosmotech.com
-      role: admin
-    - id: dev.sample.webapp@example.com
-      role: admin
-    - id: laurent.alepee@cosmotech.com
-      role: admin
-remote: '{{remote}}'
-trieur_dashboard_id: '{{trieur_dashboard_id}}'
-baggage_dashboard_id: '{{baggage_dashboard_id}}'
-scenario_view_dashboard_id: '{{scenario_view_dashboard_id}}'
-scenario_view_filter_id: '{{scenario_view_filter_id}}'
-scenario_view_flights_dashboard_id: '{{scenario_view_flights_dashboard_id}}'
-scenario_view_flight_filter_id: '{{scenario_view_flight_filter_id}}'
-scenario_view_logistic_dashboard_id: '{{scenario_view_logistic_dashboard_id}}'
-scenario_view_logisitic_filter_id: '{{scenario_view_logisitic_filter_id}}'
-overview_comparaison: '{{overview_comparaison}}'
-subfunction_dashboard_id: '{{subfunction_dashboard_id}}'
-expert_dashboard_id: '{{expert_dashboard_id}}'
+  - id: edon.tafili.ext@cosmotech.com
+    role: admin
+  - id: mohcine.tor@cosmotech.com
+    role: admin
+  - id: geoffrey.gontard@cosmotech.com
+    role: admin
+  - id: john.folly@cosmotech.com
+    role: admin
+  - id: endrit.ahmeti.ext@cosmotech.com
+    role: admin
+  - id: selmin.lekovic.ext@cosmotech.com
+    role: admin
+  - id: tristan.huet@cosmotech.com
+    role: admin
+  - id: ousmane.diop@cosmotech.com
+    role: admin
+  - id: ivan.glasser@cosmotech.com
+    role: admin
+  - id: amelie.veron@cosmotech.com
+    role: admin
+  - id: migration-team
+    role: admin
+  - id: fanny.teppe@cosmotech.com
+    role: admin
+  - id: etnik.gashi.ext@cosmotech.com
+    role: admin
+  - id: nienke.blom@cosmotech.com
+    role: admin
+# Power bi
+powerbi:
+  workspace_id: dc591e05-09eb-409a-9ead-ae8da74c86f9
+  scenario_view:
+    basic_simulation: fa34ecda-cac6-4ac9-b048-4056521e36e0
+    baggage_logistics_and_generation: dd9ce760-b7ba-427d-a9ae-c6739b6f7e6a
+    flights_and_baggage_assignment: b6c40280-4c04-4639-87f1-cbefd27a6d3f
+    detailed_simulation: fa34ecda-cac6-4ac9-b048-4056521e36e0
+    simulation_af: fa34ecda-cac6-4ac9-b048-4056521e36e0
+    generation_simulation: fa34ecda-cac6-4ac9-b048-4056521e36e0
+  dashboard_view:
+    bagages: d53f0770-f686-46d6-86a0-f614981fc41d
+    sous_fonctions: 2271530b-4880-413b-993e-235ca417f8b1
+    expert: f935d561-aa9f-4d93-9807-3307d7221a8b
+    overview_comparison: ea37fb8f-5e85-4ef4-b847-81bbabd2f7ee
