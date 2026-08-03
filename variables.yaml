@@ -54,19 +54,19 @@ security:
     - id: mathilde.emery-roch@cosmotech.com
       role: editor
 powerbi:
-  workspace_id: dc591e05-09eb-409a-9ead-ae8da74c86f9
+  workspace_id: '{{powerbi[''workspace_id'']}}'
   scenario_view:
-    basic_simulation: fa34ecda-cac6-4ac9-b048-4056521e36e0
-    baggage_logistics_and_generation: dd9ce760-b7ba-427d-a9ae-c6739b6f7e6a
-    flights_and_baggage_assignment: b6c40280-4c04-4639-87f1-cbefd27a6d3f
-    detailed_simulation: fa34ecda-cac6-4ac9-b048-4056521e36e0
+    basic_simulation: '{{powerbi[''scenario_view''][''basic_simulation'']}}'
+    baggage_logistics_and_generation: '{{powerbi[''scenario_view''][''baggage_logistics_and_generation'']}}'
+    flights_and_baggage_assignment: '{{powerbi[''scenario_view''][''flights_and_baggage_assignment'']}}'
+    detailed_simulation: '{{powerbi[''scenario_view''][''detailed_simulation'']}}'
     simulation_af: fa34ecda-cac6-4ac9-b048-4056521e36e0
     generation_simulation: fa34ecda-cac6-4ac9-b048-4056521e36e0
   dashboard_view:
-    bagages: d53f0770-f686-46d6-86a0-f614981fc41d
-    sous_fonctions: 2271530b-4880-413b-993e-235ca417f8b1
-    expert: f935d561-aa9f-4d93-9807-3307d7221a8b
-    overview_comparison: ea37fb8f-5e85-4ef4-b847-81bbabd2f7ee
+    bagages: '{{powerbi[''dashboard_view''][''bagages'']}}'
+    sous_fonctions: '{{powerbi[''dashboard_view''][''sous_fonctions'']}}'
+    expert: '{{powerbi[''dashboard_view''][''expert'']}}'
+    overview_comparison: '{{powerbi[''dashboard_view''][''overview_comparison'']}}'
 powerbi['scenario_view']['simulation_af']: fa34ecda-cac6-4ac9-b048-4056521e36e0
 powerbi['scenario_view']['generation_simulation']: fa34ecda-cac6-4ac9-b048-4056521e36e0
 powerbi['workspace_id']: '{{powerbi[''workspace_id'']}}'
