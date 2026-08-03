@@ -5,7 +5,7 @@ spec:
   sidecars:
     postgres:
       schema:
-        create: true
+        create: {{run_postgres_job}}
         jobs:
           - name: k8s_job.yaml
             path: postgres/jobs
@@ -17,315 +17,186 @@ spec:
     security: {{security}}
     description: {{workspace_description}}
     version: null
-    tags: null
+    tags:
+      - workspace
+      - babylon
     additionalData:
       webapp:
-        solution:
-          runTemplateFilter:
-            - full_demo
-            - standalone
-            - pizza
+        disableOutOfSyncWarningBanner: true
+        solution: {}
         charts:
-          workspaceId: 946bacd0-6d94-4dbb-851c-a297ba1a6bfc
+          workspaceId: {{powerbi['workspace_id']}}
           logInWithUserCredentials: false
-          useWebappTheme: true
-          dashboardsViewIframeDisplayRatio: 1.6
-          scenarioViewIframeDisplayRatio: 4.5
+          scenarioViewIframeDisplayRatio: 3.142857145
+          dashboardsViewIframeDisplayRatio: 1.610062893
+          useWebappTheme: false
           dashboardsView:
-            - title:
-                en: Customer Overview
-                fr: Aperçu des clients
-              reportId: 02c8f199-e4e1-4863-b015-d18abda7cd38
-              pageName:
-                en: d3c00faba401072eeff8
-                fr: d3c00faba401072eeff8
-              dynamicFilters:
-                - table: w_40n65rg9wz1 cosmotech_satisfaction
-                  column: Simulation_run
-                  values: lastRunId
-                - table: w_40n65rg9wz1 cosmotech_stock
-                  column: Simulation_run
-                  values: lastRunId
-            - title:
-                en: Stock Overview
-                fr: Aperçu des stocks
-              reportId: 02c8f199-e4e1-4863-b015-d18abda7cd38
-              pageName:
-                en: 2b30f1d8886fc53849b3
-                fr: 2b30f1d8886fc53849b3
-              dynamicFilters:
-                - table: w_40n65rg9wz1 cosmotech_satisfaction
-                  column: Simulation_run
-                  values: lastRunId
-                - table: w_40n65rg9wz1 cosmotech_stock
-                  column: Simulation_run
-                  values: lastRunId
-          scenarioView:
-            full_demo:
-              reportId: 02c8f199-e4e1-4863-b015-d18abda7cd38
-              pageName:
-                en: f5e73ba46b8e2085c239
-                fr: f5e73ba46b8e2085c239
-              dynamicFilters:
-                - table: w_40n65rg9wz1 cosmotech_satisfaction
-                  column: Simulation_run
-                  values: lastRunId
-                - table: w_40n65rg9wz1 cosmotech_stock
-                  column: Simulation_run
-                  values: lastRunId
-            default: {{scenario_view_dashboard_id}}
-            overrides:
-              flights_and_baggage_assignment: {{scenario_view_flights_dashboard_id}}
-              baggage_logistics_and_generation: {{scenario_view_logistic_dashboard_id}}
-          dashboards:
-            - id: {{trieur_dashboard_id}}
-              height: 900px
-              width: 100%
-            - id: {{baggage_dashboard_id}}
-              height: 900px
-              width: 100%
-            - id: {{scenario_view_dashboard_id}}
-              height: 900px
-              width: 100%
-              filters:
-                - id: {{scenario_view_filter_id}}
-                  operator: '=='
-                  column: last_csm_run_id
-                  value: lastRunId
-            - id: {{scenario_view_flights_dashboard_id}}
-              height: 900px
-              width: 100%
-              filters:
-                - id: {{scenario_view_flight_filter_id}}
-                  operator: '=='
-                  column: last_csm_run_id
-                  value: lastRunId
-            - id: {{scenario_view_logistic_dashboard_id}}
-              height: 900px
-              width: 100%
-              filters:
-                - id: {{scenario_view_logisitic_filter_id}}
-                  operator: '=='
-                  column: last_csm_run_id
-                  value: lastRunId
-            - id: {{overview_comparaison}}
-              height: 900px
-              width: 100%
-            - id: {{subfunction_dashboard_id}}
-              height: 900px
-              width: 100%
-            - id: {{expert_dashboard_id}}
-              height: 900px
-              width: 100%
-          dashboardView:
-            - id: {{baggage_dashboard_id}}
+            - dynamicFilters:
+                - column: last_csm_run_id
+                  table: GetScenarios
+                  values: visibleScenariosLastRunIds
+              reportId: d53f0770-f686-46d6-86a0-f614981fc41d
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
               title:
                 en: Baggage
                 fr: Bagages
-            - id: {{subfunction_dashboard_id}}
+            - dynamicFilters:
+                - column: last_csm_run_id
+                  table: GetScenarios
+                  values: visibleScenariosLastRunIds
+              reportId: 2271530b-4880-413b-993e-235ca417f8b1
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
               title:
-                en: Subfunction
-                fr: Sous-fonction
-            - id: {{expert_dashboard_id}}
+                en: Subfunctions
+                fr: Sous-fonctions
+            - dynamicFilters:
+                - column: last_csm_run_id
+                  table: GetScenarios
+                  values: visibleScenariosLastRunIds
+              reportId: f935d561-aa9f-4d93-9807-3307d7221a8b
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
               title:
                 en: Expert
                 fr: Expert
-            - id: {{overview_comparaison}}
+            - dynamicFilters:
+                - column: last_csm_run_id
+                  table: GetScenarios
+                  values: visibleScenariosLastRunIds
+              reportId: ea37fb8f-5e85-4ef4-b847-81bbabd2f7ee
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
               title:
-                en: Scenarios Comparison
-                fr: Comparaison de scenarios
+                en: Overview comparison
+                fr: Comparaison de scénarios
+          scenarioView:
+            basic_simulation:
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
+              reportId: {{powerbi['scenario_view']['basic_simulation']}}
+              title:
+                en: Scenario view
+                fr: Vue scenario
+              dynamicFilters:
+                - values: lastRunId
+                  column: last_csm_run_id
+                  table: GetScenarios
+            baggage_logistics_and_generation:
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
+              reportId: {{powerbi['scenario_view']['baggage_logistics_and_generation']}}
+              title:
+                en: Scenario view
+                fr: Vue scenario
+              dynamicFilters:
+                - values: lastRunId
+                  column: last_csm_run_id
+                  table: GetScenarios
+            flights_and_baggage_assignment:
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
+              reportId: {{powerbi['scenario_view']['flights_and_baggage_assignment']}}
+              title:
+                en: Scenario view
+                fr: Vue scenario
+              dynamicFilters:
+                - values: lastRunId
+                  column: last_csm_run_id
+                  table: GetScenarios
+            detailed_simulation:
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
+              reportId: {{powerbi['scenario_view']['detailed_simulation']}}
+              title:
+                en: Scenario view
+                fr: Vue scenario
+              dynamicFilters:
+                - values: lastRunId
+                  column: last_csm_run_id
+                  table: GetScenarios
+            simulation_af:
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
+              reportId: {{powerbi['scenario_view']['simulation_af']}}
+              title:
+                en: Scenario view
+                fr: Vue scenario
+              dynamicFilters:
+                - values: lastRunId
+                  column: last_csm_run_id
+                  table: GetScenarios
+            generation_simulation:
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
+              reportId: {{powerbi['scenario_view']['generation_simulation']}}
+              title:
+                en: Scenario view
+                fr: Vue scenario
+              dynamicFilters:
+                - values: lastRunId
+                  column: last_csm_run_id
+                  table: GetScenarios
+            sous_fonctions:
+              settings:
+                navContentPaneEnabled: false
+                panes:
+                  filters:
+                    expanded: false
+                    visible: true
+              reportId: {{powerbi['dashboard_view']['sous_fonctions']}}
+              title:
+                en: Scenario view
+                fr: Vue scenario
+              dynamicFilters:
+                - values: lastRunId
+                  column: last_csm_run_id
+                  table: GetScenarios
         menu:
-          supportUrl: https://support.cosmotech.com
+          documentationUrl: https://portal.cosmotech.com/resources/custom-solutions/cosmo-tech-adp/cosmo-tech-adp-tri-bagages-phase-2
           organizationUrl: https://cosmotech.com
-          documentationUrl: https://portal.cosmotech.com/resources/platform-resources/web-app-user-guide
+          supportUrl: https://support.cosmotech.com
         datasetManager:
-          kpiCards:
-            - name:
-                en: Number of customers
-                fr: Nombre de clients
-              id: count_Name
-              queryId: count_customers
-            - name:
-                en: Number of events
-                fr: Nombre d'événements
-              id: count_Event Name
-              queryId: count_events
-          categories:
-            - previewTable:
-                columns:
-                  - headerName: Name
-                    field: Name
-                    type:
-                      - string
-                  - headerName: Date of birth
-                    field: Date of birth
-                    type:
-                      - date
-                  - headerName: Age
-                    field: Age
-                    type:
-                      - int
-                  - headerName: Preferred drink
-                    field: Preferred drink
-                    type:
-                      - enum
-                    enumValues:
-                      - Beer
-                      - Cocktail
-                      - Softs
-                      - Wine
-                      - Champagne
-                  - headerName: Satisfaction
-                    field: Satisfaction
-                    type:
-                      - number
-                  - headerName: Thirsty
-                    field: Thirsty
-                    type:
-                      - bool
-                  - headerName: Service Wave
-                    field: Service Wave
-                    type:
-                      - enum
-                    enumValues:
-                      - Happy Hour
-                      - Evening
-                      - Late Night
-                      - Afternoon
-                queryId: customers_table
-              name:
-                en: Customers
-                fr: Clients
-              description:
-                en: Customers are individuals visiting a bar, consuming drinks, interacting with each other...
-                fr: Les clients sont des personnes fréquentant un bar...
-              attributes:
-                - Name
-                - Age
-                - Preferred drink
-                - Satisfaction
-              id: customers
-              type: entity
-              kpis:
-                - name:
-                    en: 'Preferred drinks:'
-                    fr: 'Boissons préférées :'
-                  id: Preferred drink
-                  queryId: pref_drink
-                - name:
-                    en: 'Average age:'
-                    fr: 'Age moyen :'
-                  id: avg_Age
-                  queryId: avg_age
-                - name:
-                    en: 'Average satisfaction:'
-                    fr: 'Satisfaction moyenne :'
-                  id: avg_Satisfaction
-                  queryId: avg_satisfaction
-                - name:
-                    en: 'Maximal satisfaction:'
-                    fr: 'Satisfaction maximale :'
-                  id: max_Satisfaction
-                  queryId: maxs_satisfaction
-                - name:
-                    en: 'Minimal satisfaction:'
-                    fr: 'Satisfaction minimale :'
-                  id: min_Satisfaction
-                  queryId: mins_satisfaction
-            - previewTable:
-                columns:
-                  - headerName: Event Name
-                    field: Event Name
-                    type:
-                      - string
-                  - headerName: Event Type
-                    field: Event Type
-                    type:
-                      - enum
-                    enumValues:
-                      - After-work
-                      - Birthday
-                      - Ceremony
-                      - Christmas
-                      - Halloween
-                      - Pool party
-                      - Wedding
-                  - headerName: Maximum capacity
-                    field: Maximum capacity
-                    type:
-                      - int
-                  - headerName: Current Reservations
-                    field: Current Reservations
-                    type:
-                      - int
-                  - headerName: Notes
-                    field: Notes
-                    type:
-                      - string
-                    acceptsEmptyFields: true
-                  - headerName: Zone
-                    field: Zone
-                    type:
-                      - enum
-                    enumValues:
-                      - Private Room
-                      - Terrace
-                      - Basement
-                      - Bar
-                      - Ball Room
-                queryId: events_table
-              name:
-                en: Events
-                fr: Evénements
-              id: events
-              type: entity
-          queries:
-            - options:
-                selects: Name,Date of birth,Age,Preferred drink,Satisfaction,Thirsty,Service Wave
-              datasetPartName: Customer
-              id: customers_table
-            - options:
-                selects: Event Name,Event Type,Maximum capacity,Current Reservations,Notes,Zone
-              datasetPartName: Events
-              id: events_table
-            - options:
-                counts: Name
-              datasetPartName: Customer
-              id: count_customers
-            - options:
-                avgs: Satisfaction
-              datasetPartName: Customer
-              id: avg_satisfaction
-            - options:
-                avgs: Age
-              datasetPartName: Customer
-              id: avg_age
-            - options:
-                counts: Event Name
-              datasetPartName: Events
-              id: count_events
-            - options:
-                selects: Preferred drink*
-              datasetPartName: Customer
-              id: pref_drink
-            - options:
-                mins: Satisfaction
-              datasetPartName: Customer
-              id: mins_satisfaction
-            - options:
-                maxs: Satisfaction
-              datasetPartName: Customer
-              id: maxs_satisfaction
-            - options:
-                selects: Event Type*
-              datasetPartName: Events
-              id: list_event_types
-            - options:
-                sums: Current Reservations
-              datasetPartName: Events
-              id: sum_reservations
           datasourceFilter:
-            - FileUploadToDataset
-            - None
-            - etl_zip2db
-            - etl_allfields
+            - upload_dataset
